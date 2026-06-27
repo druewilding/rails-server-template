@@ -7,7 +7,8 @@ The Rails equivalent of [express-server-template](https://github.com/druewilding
 ## What's included
 
 - Rails 7.2 with no database (add one when you need it)
-- [klods-ruby](https://github.com/druewilding/klods-ruby) — all builders available in every ERB view via Railtie
+- [klods-ruby](https://github.com/druewilding/klods-ruby) — all builders available in every HAML view via Railtie
+- [haml-rails](https://github.com/haml/haml-rails) — HAML template engine
 - klods CSS loaded from CDN
 - klods-js loaded via importmap for interactive components (sidebar toggle, tabs, modals)
 - Page layout with header, collapsible sidebar, content area, and footer
@@ -30,45 +31,45 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## Using klods
 
-All builders are available in every ERB view and layout — no imports needed:
+All builders are available in every HAML view and layout — no imports needed.
 
-```erb
-<%= card([
-  card_title("Hello"),
-  card_body("Build pages with Ruby.")
-]) %>
+Use `do` blocks to nest components — the indentation mirrors the HTML structure:
+
+```haml
+= stack({ gap: 4 }) do
+  = prose do
+    = h1({ id: "section" }, "My Page")
+    = p("Content goes here.")
+  = cluster({ gap: 2 }) do
+    = button({ variant: "primary" }, "Save")
+    = button("Cancel")
 ```
 
-Pass `content_for` blocks to populate the sidebar and title from any view:
+Pass title and sidebar content from any view:
 
-```erb
-<% content_for :title, "My Page" %>
+```haml
+- content_for :title, "My Page"
+- content_for :sidebar, toc([toc_item(toc_link({ href: "#section" }, "My Page"))])
 
-<% content_for :sidebar do %>
-  <%= toc([
-    toc_item(toc_link({ href: "#section" }, "Section"))
-  ]) %>
-<% end %>
-
-<%= stack({ gap: 4 }, [
-  prose([h1({ id: "section" }, "My Page")]),
-  p("Content goes here.")
-]) %>
+= stack({ gap: 4 }) do
+  = prose do
+    = h1({ id: "section" }, "My Page")
+    = p("Content goes here.")
 ```
 
 See the [klods-ruby docs](https://github.com/druewilding/klods-ruby) for the full component API.
 
 ## Key files
 
-| File | Purpose |
-|------|---------|
-| `app/views/layouts/application.html.erb` | Page shell (header, sidebar, content, footer) |
-| `app/views/welcome/index.html.erb` | Welcome page — replace with your own views |
-| `app/controllers/welcome_controller.rb` | Root and ping routes |
-| `app/controllers/api/v1/status_controller.rb` | JSON API |
-| `config/routes.rb` | All routes |
-| `config/importmap.rb` | klods-js pinned from CDN |
-| `app/javascript/application.js` | Sidebar toggle wiring |
+| File                                          | Purpose                                       |
+| --------------------------------------------- | --------------------------------------------- |
+| `app/views/layouts/application.html.haml`     | Page shell (header, sidebar, content, footer) |
+| `app/views/welcome/index.html.haml`           | Welcome page — replace with your own views    |
+| `app/controllers/welcome_controller.rb`       | Root and ping routes                          |
+| `app/controllers/api/v1/status_controller.rb` | JSON API                                      |
+| `config/routes.rb`                            | All routes                                    |
+| `config/importmap.rb`                         | klods-js pinned from CDN                      |
+| `app/javascript/application.js`               | Sidebar toggle wiring                         |
 
 ## Adding a database
 
@@ -82,6 +83,8 @@ You'll also need to add `gem "activerecord"` and configure `config/database.yml`
 ## Development
 
 ```sh
-bin/rails server        # start dev server
-bin/rails routes        # list all routes
+bin/rails server              # start dev server
+bin/rails routes              # list all routes
+bundle exec standardrb        # check style
+bundle exec standardrb --fix  # auto-fix style
 ```
