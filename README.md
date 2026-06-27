@@ -33,42 +33,43 @@ Open [http://localhost:3000](http://localhost:3000).
 
 All builders are available in every HAML view and layout — no imports needed.
 
-The key rule: every `=` output expression must be a **single line**. For complex nested structures, build sub-components with `- var =` assignments first, then combine them in a single `=` call:
+Use `do` blocks to nest components — the indentation mirrors the HTML structure:
 
 ```haml
-- card_content = card([card_title("Hello"), card_body("Build pages with Ruby.")])
-= card_content
-```
-
-Or for simple cases, keep it on one line:
-
-```haml
-= card([card_title("Hello"), card_body("Build pages with Ruby.")])
+= stack({ gap: 4 }) do
+  = prose do
+    = h1({ id: "section" }, "My Page")
+    = p("Content goes here.")
+  = cluster({ gap: 2 }) do
+    = button({ variant: "primary" }, "Save")
+    = button("Cancel")
 ```
 
 Pass title and sidebar content from any view:
 
 ```haml
 - content_for :title, "My Page"
-- content_for :sidebar, toc([toc_item(toc_link({ href: "#section" }, "Section"))])
+- content_for :sidebar, toc([toc_item(toc_link({ href: "#section" }, "My Page"))])
 
-- section = prose([h1({ id: "section" }, "My Page"), p("Content goes here.")])
-= stack({ gap: 4 }, [section])
+= stack({ gap: 4 }) do
+  = prose do
+    = h1({ id: "section" }, "My Page")
+    = p("Content goes here.")
 ```
 
 See the [klods-ruby docs](https://github.com/druewilding/klods-ruby) for the full component API.
 
 ## Key files
 
-| File | Purpose |
-|------|---------|
-| `app/views/layouts/application.html.haml` | Page shell (header, sidebar, content, footer) |
-| `app/views/welcome/index.html.haml` | Welcome page — replace with your own views |
-| `app/controllers/welcome_controller.rb` | Root and ping routes |
-| `app/controllers/api/v1/status_controller.rb` | JSON API |
-| `config/routes.rb` | All routes |
-| `config/importmap.rb` | klods-js pinned from CDN |
-| `app/javascript/application.js` | Sidebar toggle wiring |
+| File                                          | Purpose                                       |
+| --------------------------------------------- | --------------------------------------------- |
+| `app/views/layouts/application.html.haml`     | Page shell (header, sidebar, content, footer) |
+| `app/views/welcome/index.html.haml`           | Welcome page — replace with your own views    |
+| `app/controllers/welcome_controller.rb`       | Root and ping routes                          |
+| `app/controllers/api/v1/status_controller.rb` | JSON API                                      |
+| `config/routes.rb`                            | All routes                                    |
+| `config/importmap.rb`                         | klods-js pinned from CDN                      |
+| `app/javascript/application.js`               | Sidebar toggle wiring                         |
 
 ## Adding a database
 
