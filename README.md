@@ -82,6 +82,8 @@ You'll also need to add `gem "activerecord"` and configure `config/database.yml`
 ## Development
 
 ```sh
-bin/rails server        # start dev server
-bin/rails routes        # list all routes
+bin/rails server              # start dev server
+bin/rails routes              # list all routes
+bundle exec standardrb        # check style
+bundle exec standardrb --fix  # auto-fix style
 ```
