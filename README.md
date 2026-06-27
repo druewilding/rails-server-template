@@ -7,7 +7,8 @@ The Rails equivalent of [express-server-template](https://github.com/druewilding
 ## What's included
 
 - Rails 7.2 with no database (add one when you need it)
-- [klods-ruby](https://github.com/druewilding/klods-ruby) — all builders available in every ERB view via Railtie
+- [klods-ruby](https://github.com/druewilding/klods-ruby) — all builders available in every HAML view via Railtie
+- [haml-rails](https://github.com/haml/haml-rails) — HAML template engine
 - klods CSS loaded from CDN
 - klods-js loaded via importmap for interactive components (sidebar toggle, tabs, modals)
 - Page layout with header, collapsible sidebar, content area, and footer
@@ -30,30 +31,29 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## Using klods
 
-All builders are available in every ERB view and layout — no imports needed:
+All builders are available in every HAML view and layout — no imports needed.
 
-```erb
-<%= card([
-  card_title("Hello"),
-  card_body("Build pages with Ruby.")
-]) %>
+The key rule: every `=` output expression must be a **single line**. For complex nested structures, build sub-components with `- var =` assignments first, then combine them in a single `=` call:
+
+```haml
+- card_content = card([card_title("Hello"), card_body("Build pages with Ruby.")])
+= card_content
 ```
 
-Pass `content_for` blocks to populate the sidebar and title from any view:
+Or for simple cases, keep it on one line:
 
-```erb
-<% content_for :title, "My Page" %>
+```haml
+= card([card_title("Hello"), card_body("Build pages with Ruby.")])
+```
 
-<% content_for :sidebar do %>
-  <%= toc([
-    toc_item(toc_link({ href: "#section" }, "Section"))
-  ]) %>
-<% end %>
+Pass title and sidebar content from any view:
 
-<%= stack({ gap: 4 }, [
-  prose([h1({ id: "section" }, "My Page")]),
-  p("Content goes here.")
-]) %>
+```haml
+- content_for :title, "My Page"
+- content_for :sidebar, toc([toc_item(toc_link({ href: "#section" }, "Section"))])
+
+- section = prose([h1({ id: "section" }, "My Page"), p("Content goes here.")])
+= stack({ gap: 4 }, [section])
 ```
 
 See the [klods-ruby docs](https://github.com/druewilding/klods-ruby) for the full component API.
@@ -62,8 +62,8 @@ See the [klods-ruby docs](https://github.com/druewilding/klods-ruby) for the ful
 
 | File | Purpose |
 |------|---------|
-| `app/views/layouts/application.html.erb` | Page shell (header, sidebar, content, footer) |
-| `app/views/welcome/index.html.erb` | Welcome page — replace with your own views |
+| `app/views/layouts/application.html.haml` | Page shell (header, sidebar, content, footer) |
+| `app/views/welcome/index.html.haml` | Welcome page — replace with your own views |
 | `app/controllers/welcome_controller.rb` | Root and ping routes |
 | `app/controllers/api/v1/status_controller.rb` | JSON API |
 | `config/routes.rb` | All routes |
