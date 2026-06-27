@@ -1,0 +1,31 @@
+<% content_for :title, "Rails Server Template" %>
+
+<% content_for :sidebar do %>
+  <%= toc([
+    toc_item(toc_link({ href: "#welcome" }, "Welcome")),
+    toc_item(toc_link({ href: "#getting-started" }, "Getting started"))
+  ]) %>
+<% end %>
+
+<%= stack({ gap: 4 }, [
+  prose([
+    h1({ id: "welcome" }, "Welcome!"),
+    p("This is the welcome page for the Rails Server Template.")
+  ]),
+  prose([
+    h2({ id: "getting-started" }, "Getting started"),
+    p([
+      "Edit ",
+      inline_code("app/views/welcome/index.html.erb"),
+      " to change this page. Add routes in ",
+      inline_code("config/routes.rb"),
+      " and controllers in ",
+      inline_code("app/controllers/"),
+      "."
+    ])
+  ]),
+  cluster({ gap: 2 }, [
+    button({ href: "https://github.com/druewilding/klods-ruby", variant: "primary" }, "klods-ruby docs"),
+    button({ href: "/api/v1/status" }, "API status")
+  ])
+]) %>
