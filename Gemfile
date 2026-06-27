@@ -4,6 +4,8 @@ source "https://rubygems.org"
 gem "rails", "~> 7.2.3"
 # Ruby builder API for klods components [https://github.com/druewilding/klods-ruby]
 gem "klods-ruby"
+# HAML template engine [https://github.com/haml/haml-rails]
+gem "haml-rails"
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 # Use the Puma web server [https://github.com/puma/puma]
