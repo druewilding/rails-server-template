@@ -83,8 +83,10 @@ You'll also need to add `gem "activerecord"` and configure `config/database.yml`
 ## Development
 
 ```sh
-bin/rails server              # start dev server
-bin/rails routes              # list all routes
-bundle exec standardrb        # check style
-bundle exec standardrb --fix  # auto-fix style
+bin/rails server           # start dev server
+bin/rails routes           # list all routes
+bin/rails test             # run controller and integration tests
+bin/rails test:system      # run system tests (requires Chrome)
+bin/standardrb             # check style
+bin/standardrb --fix       # auto-fix style
 ```
