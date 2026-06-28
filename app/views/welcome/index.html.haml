@@ -18,12 +18,16 @@
   = cluster({ gap: 2 }) do
     = button({ variant: "primary", href: "https://www.druewilding.com/klods/", target: "_blank" }, "klods docs")
     = button({ href: "/api/v1/status" }, "API status")
+
+= stack({ gap: 4 }) do
   = prose do
     = h2({ id: "forms" }, "Forms")
     = p do
       = "Use "
       = inline_code("f.klods_field")
-      = " for styled, accessible form fields. Validation errors are wired automatically."
+      = " for styled, accessible form fields. Validation errors are wired automatically. Use `narrow: true` on the stack if you need a more narrow form."
+
+= stack({ gap: 4, narrow: true }) do
   = form_with url: "#" do |f|
     = stack({ gap: 4 }) do
       = f.klods_field :name, label: "Name"
