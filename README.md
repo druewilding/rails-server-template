@@ -6,7 +6,7 @@ The Rails equivalent of [express-server-template](https://github.com/druewilding
 
 ## What's included
 
-- Rails 7.2 with no database (add one when you need it)
+- Rails 8.1 with no database (add one when you need it)
 - [klods-ruby](https://github.com/druewilding/klods-ruby) — all builders available in every HAML view via Railtie
 - [haml-rails](https://github.com/haml/haml-rails) — HAML template engine
 - klods CSS loaded from CDN
@@ -83,8 +83,10 @@ You'll also need to add `gem "activerecord"` and configure `config/database.yml`
 ## Development
 
 ```sh
-bin/rails server              # start dev server
-bin/rails routes              # list all routes
-bundle exec standardrb        # check style
-bundle exec standardrb --fix  # auto-fix style
+bin/rails server           # start dev server
+bin/rails routes           # list all routes
+bin/rails test             # run controller and integration tests
+bin/rails test:system      # run system tests (requires Chrome)
+bin/standardrb             # check style
+bin/standardrb --fix       # auto-fix style
 ```
