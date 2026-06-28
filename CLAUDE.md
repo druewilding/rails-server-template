@@ -64,6 +64,18 @@ All klods builders are available in every view — no include needed.
 
 **One rule**: `=` output lines must be a single Ruby expression. Multi-line array literals break under HAML 6 because it inserts a semicolon after `[`. Use `do` blocks or `- var =` instead.
 
+**Forms** — `Klods::FormBuilder` is the default. Use `f.klods_field` for `<input>` elements, `f.klods_textarea` for textareas, and `f.klods_select` for selects:
+```haml
+= form_with model: @user do |f|
+  = stack({ gap: 4 }) do
+    = f.klods_field :email, label: "Email", type: :email
+    = f.klods_field :password, label: "Password", type: :password, required: true
+    = f.klods_select :role, [["Admin", "admin"], ["User", "user"]], label: "Role"
+    = f.klods_textarea :bio, label: "Bio", help: "A short description."
+    = f.klods_submit "Save"
+```
+`klods_field` `type:` accepts `:text` (default), `:email`, `:password`, `:tel`, `:url`, `:number`, `:date`, `:search`. Validation errors from `object.errors` are shown automatically on all three methods.
+
 **Per-view title and sidebar**:
 ```haml
 - content_for :title, "My Page"

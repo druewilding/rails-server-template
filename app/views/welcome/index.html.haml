@@ -1,5 +1,5 @@
 - content_for :title, "Rails Server Template"
-- content_for :sidebar, toc([toc_item(toc_link({ href: "#welcome" }, "Welcome")), toc_item(toc_link({ href: "#getting-started" }, "Getting started"))])
+- content_for :sidebar, toc([toc_item(toc_link({ href: "#welcome" }, "Welcome")), toc_item(toc_link({ href: "#getting-started" }, "Getting started")), toc_item(toc_link({ href: "#forms" }, "Forms"))])
 
 = stack({ gap: 4 }) do
   = prose do
@@ -18,3 +18,20 @@
   = cluster({ gap: 2 }) do
     = button({ variant: "primary", href: "https://www.druewilding.com/klods/", target: "_blank" }, "klods docs")
     = button({ href: "/api/v1/status" }, "API status")
+
+= stack({ gap: 4 }) do
+  = prose do
+    = h2({ id: "forms" }, "Forms")
+    = p do
+      = "Use "
+      = inline_code("f.klods_field")
+      = " for styled, accessible form fields. Validation errors are wired automatically. Use `narrow: true` on the stack if you need a more narrow form."
+
+= stack({ gap: 4, narrow: true }) do
+  = form_with url: "#" do |f|
+    = stack({ gap: 4 }) do
+      = f.klods_field :name, label: "Name"
+      = f.klods_field :email, label: "Email", type: :email, help: "We will never share your email."
+      = f.klods_select :role, [["", ""], ["Designer", "designer"], ["Developer", "developer"], ["Product", "product"]], label: "Role"
+      = f.klods_textarea :message, label: "Message"
+      = f.klods_submit "Send"
