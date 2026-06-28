@@ -6,7 +6,7 @@ The Rails equivalent of [express-server-template](https://github.com/druewilding
 
 ## What's included
 
-- Rails 7.2 with no database (add one when you need it)
+- Rails 8.1 with no database (add one when you need it)
 - [klods-ruby](https://github.com/druewilding/klods-ruby) — all builders available in every HAML view via Railtie
 - [haml-rails](https://github.com/haml/haml-rails) — HAML template engine
 - klods CSS loaded from CDN

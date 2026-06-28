@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.2.3"
+gem "rails", "~> 8.1"
 # Ruby builder API for klods components [https://github.com/druewilding/klods-ruby]
 gem "klods-ruby"
 # HAML template engine [https://github.com/haml/haml-rails]

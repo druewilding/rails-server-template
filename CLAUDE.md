@@ -6,7 +6,7 @@ A minimal Rails 7.2 starter with [klods-ruby](https://github.com/druewilding/klo
 
 ## Stack
 
-- **Rails 7.2** — no database configured by default
+- **Rails 8.1** — no database configured by default
 - **klods-ruby** — all builders available in every view via Railtie (no imports needed)
 - **haml-rails** — HAML template engine; all views are `.html.haml`
 - **klods CSS** — loaded from CDN in the layout
