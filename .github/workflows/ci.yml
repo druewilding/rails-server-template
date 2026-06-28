@@ -36,7 +36,9 @@ jobs:
         with:
           ruby-version: .ruby-version
           bundler-cache: true
+      - name: Install Chrome
+        uses: browser-actions/setup-chrome@v1
       - name: Run tests
         env:
           RAILS_ENV: test
-        run: bin/rails test
+        run: bin/rails test && bin/rails test:system
